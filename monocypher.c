@@ -383,6 +383,10 @@ void crypto_poly1305_init(crypto_poly1305_ctx *ctx, const u8 key[32])
 void crypto_poly1305_update(crypto_poly1305_ctx *ctx,
                             const u8 *message, size_t message_size)
 {
+    // XXX, merge from mainstream
+    if (message_size == 0) {
+        return;
+    }
     // Align ourselves with block boundaries
     size_t align = MIN(ALIGN(ctx->c_idx, 16), message_size);
     poly_update(ctx, message, align);
